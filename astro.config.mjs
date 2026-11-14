@@ -9,6 +9,8 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://Zeph-Zhou.github.io',
+  base: '/megaport-astro',
   vite: {
     plugins: [tailwindcss()],
 

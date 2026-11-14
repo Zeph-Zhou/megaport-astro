@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components'
 import Burger from './Burger.astro';
+
+const basePath = import.meta.env.BASE_URL;
 ---
 
 <script>
@@ -22,9 +24,9 @@ import Burger from './Burger.astro';
 </script>
 
 <header class="l-header">
-  <a href="/" class="z-10">
+  <a href=`${basePath}` class="z-10">
     <figure class="max-w-50">
-      <img src="/img/logo/logo.svg" alt="大港開唱 Logo">
+      <img src=`${basePath}/img/logo/logo.svg` alt="大港開唱 Logo">
     </figure>
   </a> 
 

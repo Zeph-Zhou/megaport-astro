@@ -4,6 +4,8 @@ import 'swiper/css';
 // 按需引入
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
+
+const basePath = import.meta.env.BASE_URL;
 ---
 
 <!-- Client Side -->
@@ -33,17 +35,17 @@ import 'swiper/css/effect-fade';
     <div class="swiper-wrapper">
       <div class="swiper-slide l-home-hero__slide">
         <figure class="size-full l-home-hero__img-mask">
-          <img src="/img/banner/img-01.jpg" alt="大港開唱" class="u-object-fit">
+          <img src=`${basePath}/img/banner/img-01.jpg` alt="大港開唱" class="u-object-fit">
         </figure>
       </div>
       <div class="swiper-slide l-home-hero__slide">
         <figure class="size-full l-home-hero__img-mask">
-          <img src="/img/banner/img-02.jpg" alt="大港開唱" class="u-object-fit">
+          <img src=`${basePath}/img/banner/img-02.jpg` alt="大港開唱" class="u-object-fit">
         </figure>
       </div>
       <div class="swiper-slide l-home-hero__slide">
         <figure class="size-full l-home-hero__img-mask">
-          <img src="/img/banner/img-03.jpg" alt="大港開唱" class="u-object-fit">
+          <img src=`${basePath}/img/banner/img-03.jpg` alt="大港開唱" class="u-object-fit">
         </figure>
       </div>
     </div>

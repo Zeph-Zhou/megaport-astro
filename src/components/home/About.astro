@@ -1,18 +1,20 @@
 ---
 import Btn from '../Btn.astro';
 import SectionTitle from '../SectionTitle.astro';
+
+const basePath = import.meta.env.BASE_URL;
 ---
 
 <section class="--gradient l-home-about">
   <div class="l-container">
-    <SectionTitle title="ABOUT" class="mb-20"/>
+    <SectionTitle title="ABOUT" class="mb-20" />
   </div>
   <div class="l-container --align-left">
     <div class="grid md:grid-cols-12">
       <div class="col-span-8 order-2 md:order-1">
         <div class="h-full l-home-about__img-wrap">
           <figure class="h-full l-home-about__img-mask">
-          <img src="/img/about/about.jpg" alt="關於大港開唱" class="u-object-fit md:absolute top-0 left-0">
+          <img src=`${basePath}/img/about/about.jpg` alt="關於大港開唱" class="u-object-fit md:absolute top-0 left-0">
           </figure>
         </div>
       </div>
@@ -35,7 +37,7 @@ import SectionTitle from '../SectionTitle.astro';
           <!-- div(class="o-btn --align-right mt-16") -->
           <!-- a(href=`${basePath}/about.html` target="_blank" class="o-btn__link") MORE -->
           <Btn
-            href="/about"
+            href=`${basePath}/about`
             align="right"
             class="mt-16"
             data-aos="fade-up">MORE</Btn
