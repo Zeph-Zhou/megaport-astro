@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "astro-build.astro-vscode",
+    "ms-ceintl.vscode-language-pack-zh-hant",
+    "bradlc.vscode-tailwindcss",
+		"jack89ita.copy-filename",
+		"file-icons.file-icons",
+		"ritwickdey.liveserver",
+		"christian-kohler.path-intellisense",
+		"syler.sass-indented",
+		"ms-vscode.sublime-keybindings"
+  ],
+  "unwantedRecommendations": []
+}

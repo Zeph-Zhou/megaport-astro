@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components'
+
+import SectionTitle from "../SectionTitle.astro";
+import NewsCard from "../news/Card.astro"
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+const newsList = await getCollection('news');
+---
+
+<!-- Client Side -->
+<script>
+import Swiper from 'swiper';
+import { Navigation } from 'swiper/modules';
+
+const swiper = new Swiper('.l-home-news__swiper', {
+    modules: [Navigation],
+    slidesPerView: 'auto', // 一次顯示 4 張，改成 auto 可以自定義 slide 寬度
+    spaceBetween: 16, // 每一張之間的間距（px），24 改成 16。
+    centeredSlides: true, // 關鍵術性：讓 Slide 變成置中。
+    loop: true, // 循環播放
+    longSwipesRatio: 0.1, // 縮小拖曳動作
+    speed: 1450, // 過渡期設定 like duration
+    navigation: {
+      nextEl: '.l-home-news__swiper-btn.--next',
+      prevEl: '.l-home-news__swiper-btn.--prev',
+    },
+    breakpoints: {
+      1400: {
+        slidesPerView: 4, // 一次顯示 4 張
+        spaceBetween: 24, // 每一張之間的間距（px）
+        centeredSlides: false,        
+      },
+      992: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+        centeredSlides: false,
+      },
+      576:{
+        slidesPerView: 2,
+        centeredSlides: false,
+      }
+    }
+  });
+
+  const homeNewsEl = document.querySelector<HTMLElement>('.l-home-news');
+  const bodyEl = document.body;
+  window.addEventListener('scroll', function() {
+    // return 會停止執行
+    if (!homeNewsEl) return;
+
+    // getBoundingClientRect().top 用來偵測，指定元素距離視窗上緣的距離，頂到視窗上緣後會是負數
+    const top = homeNewsEl.getBoundingClientRect().top
+    const start = top < 200;
+    const end = top * -1 > homeNewsEl.offsetHeight / 3
+    
+    // toggle(class 名稱, 判斷式)
+    // toggle 符合判斷式條件，就會將 class 名稱加進 classList
+    bodyEl.classList.toggle('is-home-news-active', start && !end)
+  });
+</script>
+
+<section class="l-home-news">
+  <button type="button" class="l-home-news__swiper-btn --next">
+    <Icon name="mingcute:arrow-right-fill" class="u-icon" />
+  </button>
+  <button type="button" class="l-home-news__swiper-btn --prev">
+    <Icon name="mingcute:arrow-left-fill" class="u-icon" />
+  </button>
+  <div class="l-container">
+    <SectionTitle title="NEWS" class="mb-20 text-center" />
+
+    <div class="swiper l-home-news__swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide max-sm:w-[70vw]!">
+          <NewsCard entry={newsList[0]} />
+        </div>
+        <div class="swiper-slide max-sm:w-[70vw]!">
+          <NewsCard entry={newsList[1]} />
+        </div>
+        <div class="swiper-slide max-sm:w-[70vw]!">
+          <NewsCard entry={newsList[2]} />
+        </div>
+        <div class="swiper-slide max-sm:w-[70vw]!">
+          <NewsCard entry={newsList[3]} />
+        </div>
+        <div class="swiper-slide max-sm:w-[70vw]!">
+          <NewsCard entry={newsList[4]} />
+        </div>
+        <div class="swiper-slide max-sm:w-[70vw]!">
+          <NewsCard entry={newsList[5]} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .l-home-news {
+    position: relative;
+    &__swiper-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%); // 位移自身高度一半
+      padding: var(--spacing-4);
+      background-color: var(--color-gray-light);
+      font-size: var(--text-md);
+      color: var(--color-gray-mid);
+      z-index: 10;
+      transition-property: background, color, box-shadow;
+      transition-duration: 0.3s;
+      &:hover {
+        background-color: var(--color-black);
+        color: var(--color-secondary);
+        box-shadow: 0 0 var(--spacing-1) var(--color-black-80);
+      }
+      &:active {
+        background-color: var(--color-secondary);
+        color: var(--color-black);
+        box-shadow: 0 0 var(--spacing-1) var(--color-gray-light-80);
+        transition-duration: 0s;
+      }
+      &.--prev {
+        left: 0;
+        border-radius: 0 var(--spacing-4) var(--spacing-4) 0;
+      }
+      &.--next {
+        right: 0;
+        border-radius: var(--spacing-4) 0 0 var(--spacing-4);
+      }
+    }
+  }
+</style>

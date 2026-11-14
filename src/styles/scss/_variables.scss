@@ -1,0 +1,95 @@
+@use 'functions' as *;
+@use 'mixins' as *;
+
+:root {
+  // 所有數值除以 16 = 乘以 1 / 16
+  // 1rem 是為了計算時加上 rem 單位
+  --html-spacing: 1rem / 16;
+
+  // Section
+  --section-spacing-x: 6vw;
+  --section-spacing-y: var(--spacing-30);
+  @include media(max-sm) {
+    --section-spacing-x: 4vw;
+  }
+  
+  // Container
+  --container-md: calc(var(--html-spacing)*1600);
+  --container-default: calc(var(--html-spacing)*1520);
+  --container-sm: calc(var(--html-spacing)*1440);
+  --container-xs: calc(var(--html-spacing)*1360);
+  --container-2xs: calc(var(--html-spacing)*1280);
+  --container-3xs: calc(var(--html-spacing)*880);
+
+  // Spacing
+  // 要在 CSS 變數使用 function 需要加上 #{}
+  // 不然會直接編譯 rem(*) 出去
+  --spacing-40: #{rem(160)};
+  --spacing-36: #{rem(144)};
+  --spacing-32: #{rem(128)};
+  --spacing-30: #{rem(120)};
+  --spacing-26: #{rem(104)};
+  --spacing-24: #{rem(96)};
+  --spacing-22: #{rem(88)};
+  --spacing-20: #{rem(80)};
+  --spacing-18: #{rem(72)};
+  --spacing-16: #{rem(64)};
+  --spacing-14: #{rem(56)};
+  --spacing-12: #{rem(48)};
+  --spacing-10: #{rem(40)};
+  --spacing-9: #{rem(36)};
+  --spacing-8: #{rem(32)};
+  --spacing-6: #{rem(24)};
+  --spacing-5: #{rem(20)};
+  --spacing-4: #{rem(16)};
+  --spacing-3: #{rem(12)};
+  --spacing-2: #{rem(8)};
+  --spacing-1_5: #{rem(6)};
+  --spacing-1: #{rem(4)};
+
+  @include media(max-sm) {
+    --spacing-40: 24vw;
+    --spacing-36: 22vw;
+    --spacing-32: 21vw;
+    --spacing-30: 20vw;
+    --spacing-26: 19vw;
+    --spacing-24: 18vw;
+    --spacing-22: 17vw;
+    --spacing-20: 16vw;
+    --spacing-18: 15vw;
+    --spacing-16: 14vw;
+    --spacing-14: 12vw;
+    --spacing-12: 10vw;
+    --spacing-10: 8vw;
+    --spacing-9: 7vw;
+    --spacing-8: 6vw;
+    --spacing-6: 5vw;
+    --spacing-5: 4vw;
+    --spacing-4: 3vw;
+    --spacing-3: 2vw;
+  }
+
+  // Text
+  --text-5xl: #{rem(64)};
+  --text-4xl: #{rem(40)};
+  --text-3xl: #{rem(32)};
+  --text-2xl: #{rem(28)};
+  --text-xl: #{rem(24)};
+  --text-lg: #{rem(20)};
+  --text-md: #{rem(18)};
+  --text-base: #{rem(16)};
+  --text-sm: #{rem(14)};
+  --text-xs: #{rem(12)};
+  @include media(max-md) {
+    --text-4xl: #{rem(36)};
+  }
+  @include media(max-sm) {
+    --text-5xl: #{rem(62)};
+    --text-4xl: #{rem(32)};
+    --text-3xl: #{rem(28)};
+    --text-2xl: #{rem(24)};
+    --text-xl: #{rem(22)};
+    --text-lg: #{rem(18)};
+    --text-md: #{rem(17)};
+  }
+}

@@ -1,0 +1,244 @@
+// https://sass-lang.com/documentation/at-rules/use/
+@use 'functions' as *;
+@use 'mixins' as *;
+
+// 沒有加 @layer 的話，css 權重會大於 tailwind 的 @layer utilities
+// 因為 @layer 的規則是，沒有包 @layer 的權重，會大於任何有包 @layer 的 css
+
+@layer app-base {
+  /* Resets */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    // letter-spacing: 1.2px;
+    // 0.08em 會根據設定的文字大小 0.08 倍的間距
+    letter-spacing: var(--tracking-normal);
+  }
+  
+  html {
+    font-size: 16px;
+    @include media(max-3xl) {
+      font-size: 15px;
+    }
+  }
+  
+  body {
+    margin: 0;
+    background-color: var(--color-gray-mid);
+    background-image: url('/public/img/bg-dots.png');
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 400;
+    // ios 文字去毛邊
+    -webkit-font-smoothing: antialiased;
+    line-height: var(--leading-tight);
+    color: var(--color-gray-light);
+    // background-color: var(--color-gray-mid);
+    transition: background 0.75s;
+
+    &.is-home-news-active {
+      background-color: var(--color-primary);
+      background-image: none;
+    }
+  }
+  
+  /* ----------------------------------- */
+  /* ------ Reset ------ */
+  /* ----------------------------------- */
+  a, button, input, label, select, textarea {
+    // 防止雙點擊畫面放大
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+  }
+  
+  a, button {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  button {
+    padding: 0;
+    background: none;
+    border: none;
+    outline: none;
+    text-align: inherit;
+    appearance: none;
+  }
+  
+  img {
+    max-width: 100%;
+    /* 因為圖片 display 是 inline，會導致底部會有預留給小寫英文的縫隙 */
+    /* 可以使用 display: block; 解決，但不建議，因為會影響後台編輯器用 text-align 圖片調整置中 */
+    /* 這邊建議使用 vertical-align: middle; 解決 */
+    /* display: block; */
+    vertical-align: middle;
+  }
+  
+  svg {
+    max-width: inherit;
+    vertical-align: middle;
+  }
+  
+  ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    &.--initial {
+      // revert 返回瀏覽器預設
+      list-style: revert;
+    }
+  }
+  // 改成上面
+  // ul.initial, ol.initial {
+  //   list-style: revert;
+  // }
+  
+  ul.--initial {
+    padding-left: 28px;
+  }
+  // 改成上面
+  // ul.initial {
+  //   padding-left: 28px;
+  // }
+  ol.--initial {
+    padding-left: 28px;
+  }
+  // 改成上面
+  // ol.initial {
+  //   padding-left: 36px;
+  // }
+  
+  td, th {
+    padding: 0 var(--spacing-3);
+    border: 1px solid var(--color-black);
+  }
+  
+  h1, h2, h3, h4, h5, h6, p, figure, button {
+    margin: 0;
+    /* 因為有些框架會設定預設值，所以要把他設定成 inherit 繼承，做初始化 */
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+  }
+  
+  p {
+    /* 通常內文的行高會設大一點，比較好閱讀 */
+    line-height: 1.6;
+  }
+  
+  span {
+    display: block;
+    line-height: inherit;
+  }
+  
+  /* ----------------------------------- */
+  /* ------ Layout ------ */
+  /* ----------------------------------- */
+
+  section {
+    padding: var(--section-spacing-y) var(--section-spacing-x);
+    &.--gradient {
+      background-image: linear-gradient(
+        to bottom,
+        var(--color-black) 0%,
+        transparent 70%
+      );
+    }
+  }
+  
+  .l-container {
+    --container-width: var(--container-default);
+    &-md {
+      --container-width: var(--container-md);
+    }
+    &-sm {
+      --container-width: var(--container-sm);
+    }
+    &-xs {
+      --container-width: var(--container-xs);
+    }
+    &-2xs {
+      --container-width: var(--container-2xs);
+    }
+    &-3xs {
+      --container-width: var(--container-3xs);
+    }
+  }
+
+  [class*="l-container"] {
+    max-width: var(--container-width);
+    margin: 0 auto;
+
+    // |----------||----------| section 寬
+    //        |---||---|        container 最大寬
+    // |----------||---|        section 寬 / 2 + container 最大寬 / 2
+    //
+    // section 一半 + container 最大寬的一半
+
+    // 這邊需要定義 Section 寬度
+    // 因為有的 section 不是在 100vw 大小內
+    // 15px 為 scrollbar 寬度及一些計算誤差扣除
+    --section-width: calc(100vw - 15px);
+
+    // 減回去 section padding 空間
+    --edge-fill: calc(-1 * var(--section-spacing-x));
+
+    --align-max-width: calc(
+      var(--section-width) / 2 + var(--container-width) / 2
+    );
+
+    &.--align-left {
+      // width: auto 移除預設 100%
+      // 使 container 寬度不侷限在 section padding 裡
+      width: auto;
+      max-width: var(--align-max-width);
+      margin-left: var(--edge-fill);
+    }
+
+    &.--align-right {
+      // width: auto 移除預設 100%
+      // 使 container 寬度不侷限在 section padding 裡
+      width: auto;
+      max-width: var(--align-max-width);
+      margin-right: var(--edge-fill);
+    }
+  }
+
+  // Grid 自定義 gap
+  .grid {
+    &.--no-gap {
+      column-gap: 0;
+      row-gap: 0;
+    }
+    &.--gap-md {
+      column-gap: var(--spacing-8);
+      row-gap: var(--spacing-8);
+      @include media(max-sm) {
+        column-gap: var(--spacing-4);
+        row-gap: var(--spacing-6);
+      }
+    }
+    &.--gap {
+      column-gap: var(--spacing-6);
+      row-gap: var(--spacing-6);
+      @include media(max-sm) {
+        column-gap: var(--spacing-3);
+        row-gap: var(--spacing-4);
+      }
+    }
+    &.--gap-y-md {
+      row-gap: var(--spacing-8);
+      @include media(max-sm) {
+        row-gap: var(--spacing-6);
+      }
+    }
+  }
+  
+  // h1 {
+  //   color: red;
+  // }
+}

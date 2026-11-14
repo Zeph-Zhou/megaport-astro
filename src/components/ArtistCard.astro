@@ -1,0 +1,52 @@
+---
+interface Props {
+  data: {
+    title: string;
+    image: string;
+  };
+  size?: 'sm' | 'lg';
+  // direction?: 'reverse'
+  reverse?: boolean;
+  // isActive: boolean;
+}
+
+const {
+  data,
+  size,
+  // direction
+  reverse,
+  // isActive: false
+} = Astro.props;
+---
+
+<article
+  class="c-artist-card"
+  class:list={[
+    // size 有值的話 (&&)，幫我加上後面的字串資料
+    size && `--size-${size}`
+    // direction && `--${direction}`,
+  ]}
+>
+  <a
+    href="##"
+    class="flex gap-y-2"
+    class:list={[
+      // { 'is-active': isActive },
+      reverse ? 'flex-col-reverse' : 'flex-col'
+    ]}
+  >
+    <h3 class="text-xl font-900 tracking-tight">{data.title}</h3>
+    <figure>
+      <img src={data.image} alt={data.title} loading="lazy" class="w-full">
+    </figure>
+  </a>
+</article>
+
+<style lang="scss">
+  .c-artist-card {
+    max-width: rem(450);
+    &.--size-lg {
+      max-width: rem(560);
+    }
+  }
+</style>

@@ -1,0 +1,224 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const basePath = import.meta.env.BASE_URL;
+---
+
+<script>
+  import { lenis, test } from '../../scripts/main.ts';
+
+  const goTopEl = document.querySelector<HTMLElement>('.o-gotop');
+  goTopEl?.addEventListener('click', () => {
+    lenis.scrollTo(0, {
+      duration: 1.5,
+    });
+  });
+</script>
+
+<footer class="l-footer">
+  <!-- 使用共用的 Lenis instance 回到頂端 -->
+  <div class="o-gotop">
+    <Icon name="mingcute:arrow-up-fill" class="u-icon-sm" />
+    <span class="font-900">TOP</span>
+  </div>
+  <div class="relative py-40 px-[4vw]">
+    <div class="absolute inset-0" data-parallax-offset="200">
+      <img
+        src="/img/footer/bg.jpg"
+        alt="大港開唱資訊"
+        loading="lazy"
+        class="u-object-fit --parallax"
+      />
+    </div>
+    <div class="relative max-w-60 sm:max-w-80 mx-auto">
+      <img
+        src="/img/footer/date.svg"
+        alt="大港開唱資訊"
+        loading="lazy"
+        class="js-lazy --bg-clean"
+      />
+    </div>
+  </div>
+  <div class="l-footer__menu">
+    <ul class="l-footer__btn-box">
+      <li class="l-footer__btn-wrap">
+        <a href={`${basePath}#home-lineup`} class="l-footer__btn">
+          <span class="l-footer__text --en">LINEUP</span>
+          <span class="l-footer__text --zh">演出陣容</span>
+        </a>
+      </li>
+      <li class="l-footer__btn-wrap">
+        <a href={`${basePath}/news`} class="l-footer__btn">
+          <span class="l-footer__text --en">NEWS</span>
+          <span class="l-footer__text --zh">最新消息</span>
+        </a>
+      </li>
+      <li class="l-footer__btn-wrap">
+        <a href={`${basePath}#home-about`} class="l-footer__btn">
+          <span class="l-footer__text --en">ABOUT</span>
+          <span class="l-footer__text --zh">關於大港</span>
+        </a>
+      </li>
+      <li class="l-footer__btn-wrap">
+        <a href="##" class="l-footer__btn">
+          <span class="l-footer__text --en">TIMETABLE</span>
+          <span class="l-footer__text --zh">節目表</span>
+        </a>
+      </li>
+      <li class="l-footer__btn-wrap">
+        <a href="##" class="l-footer__btn">
+          <span class="l-footer__text --en">TICKET</span>
+          <span class="l-footer__text --zh">購票資訊</span>
+        </a>
+      </li>
+      <li class="l-footer__btn-wrap">
+        <a href={`${basePath}/contact`} class="l-footer__btn">
+          <span class="l-footer__text --en">MAP</span>
+          <span class="l-footer__text --zh">地圖導覽</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="l-footer__link-box">
+      <li class="l-footer__link-wrap">
+        <!-- .leading-1 解決高度問題 -->
+        <a
+          href="https://www.facebook.com//megaportfest/"
+          target="_blank"
+          class="leading-1"
+          aria-label="facebook"
+        >
+          <Icon name="mingcute:facebook-fill" class="u-icon" />
+        </a>
+      </li>
+      <li class="l-footer__link-wrap">
+        <a
+          href="https://www.instagram.com/megaportfest/"
+          target="_blank"
+          class="leading-1"
+          aria-label="instagram"
+        >
+          <Icon name="mingcute:ins-fill" class="u-icon" />
+        </a>
+      </li>
+      <li class="l-footer__link-wrap">
+        <a
+          href="https://www.youtube.com/channel/UC7xWU14_GGYKVqoSLg1M8EQ/feed"
+          target="_blank"
+          class="leading-1"
+          aria-label="youtube"
+        >
+          <Icon name="mingcute:youtube-fill" class="u-icon" />
+        </a>
+      </li>
+    </ul>
+    <span class="text-sm">© 2024 Jarvis Course. All rights reserved.</span>
+  </div>
+</footer>
+
+<style lang="scss">
+  .l-footer-date {
+    position: relative;
+    &__img-mask {
+      @include media(max-sm) {
+        max-width: rem(240);
+      }
+    }
+  }
+  .l-footer {
+    position: relative;
+    &__menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--spacing-10) 4vw;
+      background-color: var(--color-primary);
+    }
+    &__btn-box {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: rem(-5);
+    }
+    &__btn-wrap {
+      margin-top: rem(5);
+      &:not(:last-child) {
+        margin-right: var(--spacing-6);
+      }
+    }
+    &__btn {
+      position: relative;
+      &.is-active {
+        color: var(--color-secondary);
+      }
+    }
+    &__btn:hover &__text {
+      &.--en {
+        opacity: 0;
+      }
+      &.--zh {
+        color: var(--color-secondary);
+        opacity: 1;
+      }
+    }
+    &__text {
+      font-weight: 700;
+      text-align: center;
+      white-space: nowrap;
+      transition:
+        color 0.3s,
+        opacity 0.3s;
+      &.--en {
+        font-family: var(--font-en);
+      }
+      &.--zh {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: var(--font-sans);
+        opacity: 0;
+      }
+    }
+    &__link-box {
+      display: flex;
+      align-items: center;
+      margin-top: var(--spacing-4);
+      margin-bottom: var(--spacing-4);
+    }
+    &__link-wrap {
+      transition: color 0.3s;
+      &:hover {
+        color: var(--color-secondary);
+      }
+      &:not(:last-child) {
+        margin-right: var(--spacing-4);
+      }
+    }
+  }
+  .o-gotop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    padding: var(--spacing-2);
+    border-radius: var(--spacing-2);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 4px var(--color-primary);
+    font-family: var(--font-en);
+    color: var(--color-primary);
+    text-align: center;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-black);
+    }
+  }
+</style>

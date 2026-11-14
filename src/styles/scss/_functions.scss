@@ -1,0 +1,13 @@
+// scss 函示
+@function rem($pxValue) {
+  // #{} 讓變數可以帶進原生 css calc 轉成數值計算
+  @return calc(var(--html-spacing) * #{$pxValue});
+}
+
+// `calc(var(--html-spacing) * $pxValue)` 編譯出來為 =>
+// `calc(var(--html-spacing) * 數值)` 使 CSS 辨識度佳
+
+// 使用方式 rem(400)
+// => calc(var(--html-spacing) * 400)
+// => 25rem
+// => 400px

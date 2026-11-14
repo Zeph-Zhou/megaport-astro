@@ -1,0 +1,91 @@
+---
+import Btn from '../Btn.astro';
+import SectionTitle from '../SectionTitle.astro';
+---
+
+<section class="--gradient l-home-about">
+  <div class="l-container">
+    <SectionTitle title="ABOUT" class="mb-20"/>
+  </div>
+  <div class="l-container --align-left">
+    <div class="grid md:grid-cols-12">
+      <div class="col-span-8 order-2 md:order-1">
+        <div class="h-full l-home-about__img-wrap">
+          <figure class="h-full l-home-about__img-mask">
+          <img src="/img/about/about.jpg" alt="關於大港開唱" class="u-object-fit md:absolute top-0 left-0">
+          </figure>
+        </div>
+      </div>
+      <div class="col-span-4 order-1 md:order-2">
+        <div class="pt-6 sm:pt-10 pb-20 max-md:pl-[5vw]">
+          <div class="md:-ml-40 mb-16" data-aos="fade-up">
+            <h3 class="text-2xl font-900 mb-4">
+              2022 年即將邁入第十三屆的《大港開唱》
+            </h3>
+            <p class="font-500 line-clamp-3">
+              每年三月於高雄舉辦的大型音樂祭典，受到全台灣及日本香港年輕觀眾的喜愛，近年已成為台灣最具指標性的大型戶外音樂祭活動。
+            </p>
+          </div>
+          <div data-aos="fade-up">
+            <h3 class="text-2xl font-900 mb-4">「人生」與「音樂」</h3>
+            <p class="font-500 line-clamp-3">
+              大港舉辦在高雄港邊，獨特的海港地景和人文風情，常勾起人生中各種酸甜苦辣的回憶。也因如此，大港總是邀請有著豐富人生歷程的知名藝人及業界前輩演出，也會與新一代的樂團或藝人一起合作演出，交融出世代之間的化學效應，往往成為當年度為人津津樂道的經典現場
+            </p>
+          </div>
+          <!-- div(class="o-btn --align-right mt-16") -->
+          <!-- a(href=`${basePath}/about.html` target="_blank" class="o-btn__link") MORE -->
+          <Btn
+            href="/about"
+            align="right"
+            class="mt-16"
+            data-aos="fade-up">MORE</Btn
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .l-home-about {
+    position: relative;
+    overflow: hidden; // 新增
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+
+      top: 0;
+      right: 0;
+      transform-origin: right bottom; // 修改成 bottom
+      transform: skew(-35deg);
+      width: 60%;
+      height: rem(80);
+      background-image: linear-gradient(
+        to right,
+        var(--color-gray-light-80) 0%,
+        var(--color-gray-light-80) 50%,
+        transparent 50%,
+        transparent 100%
+      );
+      background-size: 14% 100%;
+      @include media(max-sm) {
+        width: 40%;
+        height: rem(64);
+        background-size: 24% 100%;
+      }
+    }
+
+    &__img-wrap {
+      transform-origin: bottom right;
+      transform: skew(35deg);
+      overflow: hidden;
+    }
+    &__img-mask {
+      position: relative;
+      transform-origin: bottom right;
+      transform: skew(-35deg);
+    }
+  }
+</style>

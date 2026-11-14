@@ -1,0 +1,113 @@
+/* @import "tailwindcss"; */
+
+/* https://developer.mozilla.org/zh-CN/docs/Web/CSS/Reference/At-rules/@layer */
+/* @layer 用來控制 css 權重，越後面越大 */
+@layer theme, base, app-base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* 一般 @theme 只會依照你實際用到的 class 產生相關 CSS 變數；
+static 則會強制把該區塊內的 theme variables 都輸出成 CSS 變數，
+即使沒有被 utility 使用。 */
+@theme static {
+  /* Breakpoint */
+  /* 清除所有預設樣式 */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-ipad: 1024px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-2xl: 1400px;
+  --breakpoint-3xl: 1600px;
+
+  /* 在這邊定義 spacing 蓋掉原本預設的，並且是套用我們自己定義的 --app-spacing-* 變數 */
+  --spacing-40: var(--app-spacing-40);
+  --spacing-36: var(--app-spacing-36);
+  --spacing-32: var(--app-spacing-32);
+  --spacing-30: var(--app-spacing-30);
+  --spacing-26: var(--app-spacing-26);
+  --spacing-24: var(--app-spacing-24);
+  --spacing-22: var(--app-spacing-22);
+  --spacing-20: var(--app-spacing-20);
+  --spacing-18: var(--app-spacing-18);
+  --spacing-16: var(--app-spacing-16);
+  --spacing-14: var(--app-spacing-14);
+  --spacing-12: var(--app-spacing-12);
+  --spacing-10: var(--app-spacing-10);
+  --spacing-9: var(--app-spacing-9);
+  --spacing-8: var(--app-spacing-8);
+  --spacing-6: var(--app-spacing-6);
+  --spacing-5: var(--app-spacing-5);
+  --spacing-4: var(--app-spacing-4);
+  --spacing-3: var(--app-spacing-3);
+  --spacing-2: var(--app-spacing-2);
+  --spacing-1_5: var(--app-spacing-1_5);
+  --spacing-1: var(--app-spacing-1);
+
+  /* Font */
+  --font-sans: 'Noto Sans TC', sans-serif;
+  --font-en: 'Roboto', 'Arial', sans-serif;
+
+  /* Font Weight */
+  --font-weight-900: 900;
+  --font-weight-700: 700;
+  --font-weight-600: 600;
+  --font-weight-500: 500;
+  --font-weight-400: 400;
+  --font-weight-300: 300;
+  --font-weight-100: 100;
+
+  /* Text */
+  /* 清除所有預設樣式 */
+  --text-*: initial;
+  --text-5xl: var(--app-text-5xl);
+  --text-4xl: var(--app-text-4xl);
+  --text-3xl: var(--app-text-3xl);
+  --text-2xl: var(--app-text-2xl);
+  --text-xl: var(--app-text-xl);
+  --text-lg: var(--app-text-lg);
+  --text-md: var(--app-text-md);
+  --text-base: var(--app-text-base);
+  --text-sm: var(--app-text-sm);
+  --text-xs: var(--app-text-xs);
+
+  /* Line Height */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+  --leading-loose: 1.7;
+
+  /* Letter Spacing */
+  --tracking-tighter: 0.02em;
+  --tracking-tight: 0.04em;
+  --tracking-normal: 0.08em;
+  --tracking-wide: 0.12em;
+  --tracking-wider: 0.16em;
+  --tracking-widest: 0.18em;
+
+  /* Colors */
+  --color-primary: rgb(239 131 34);
+
+  --color-secondary: rgb(150 232 129);
+  --color-secondary-mid: rgb(178 226 166);
+
+  --color-black: rgb(41 41 41);
+  --color-black-80: rgb(from var(--color-black) r g b / 0.8);
+  --color-black-20: rgb(from var(--color-black) r g b / 0.2);
+
+  --color-gray: rgb(70 70 70);
+
+  --color-gray-mid: rgb(155 155 155);
+  --color-gray-mid-40: rgb(from var(--color-gray-mid) r g b / 0.4);
+
+  --color-gray-light: rgb(245 245 245);
+  --color-gray-light-80: rgb(from var(--color-gray-light) r g b / 0.8);
+
+  --color-white: rgb(255 255 255);
+  --color-white-40: rgb(from var(--color-white) r g b / 0.4);
+}

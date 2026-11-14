@@ -1,0 +1,88 @@
+<button type="button" class="o-burger">      
+  <div class="o-burger__line"></div>
+  <div class="o-burger__line"></div>
+  <div class="o-burger__line"></div>
+</button>
+
+<style lang="scss">
+  .o-burger {
+    --size: #{rem(40)};
+    --line-color: var(--color-gray-light);
+
+    width: var(--size);
+    height: var(--size);
+    // background-color: var(--line-color);
+    border-radius: 8px;
+    // padding 使用 % 單位，會以寬度值作依據自動調整
+    padding: 2%;
+    display: flex;
+    // 加上 gap 維持間距
+    gap: rem(8);
+    flex-direction: column;
+    // justify-content: space-between; 原
+    justify-content: center;
+    // 為了 hover 讓 line 往右收
+    align-items: flex-end;
+    // 連帶 gap 都要設定 transition
+    // transition: background 0.5s, gap 0.5s;
+    transition-property: background, gap, transform, border-radius;
+    transition-duration: 0.5s;
+
+    @include media('max-sm') {
+      --size: #{rem(32)}
+    }
+
+    // .o-burger:hover {}
+    &:hover {
+      // background-color: #f9a03f;
+    }
+    
+    // .o-burger.is-opened {}
+    &.is-opened {
+      // justify-content: center;
+      align-items: center;
+      gap: 0px;
+      // border-radius: 99px;
+    }
+    &.is-opened:hover {
+      transform: rotate(450deg)
+    }
+
+    // .o-burger__line {}
+    &__line {
+      width: 100%;
+      height: 2px;
+      background-color: var(--line-color);
+      // border-radius: 1.6px;
+      transition: width 0.5s, transform 0.5s;
+    }
+
+    // .o-burger 在 Hover 時裡面的（選擇器空一格）.o-burger__line 設定樣式：&:hover .o-burger__line {}
+    &:hover &__line {
+      // .o-burger:hover .o-burger__line:nth-child(2) {}
+      &:nth-child(2) {
+        width: 75%;
+      }
+      &:nth-child(3) {
+        width: 50%;
+      }
+    }
+
+    
+    &.is-opened &__line {
+      // .o-burger.is-opened .o-burger__line:nth-child(1) {}
+      &:nth-child(1) {
+        width: 120%;
+        transform: translateY(100%) rotate(45deg)
+      }
+      &:nth-child(2) {
+        width: 0%;
+        transition-duration: 0s;
+      }
+      &:nth-child(3) {
+        width: 120%;
+        transform: translateY(-100%) rotate(-45deg)
+      }
+    }
+  }
+</style>

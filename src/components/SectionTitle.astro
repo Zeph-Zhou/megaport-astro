@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  class?: string;
+}
+
+const {
+  title,
+  subtitle = 'MEGAPORT FESTIVAL',
+  class: className // 冒號代表重新命名的概念。
+} = Astro.props;
+---
+
+<h2 class="o-section-title font-900 leading-tight text-secondary" class:list={[className]}>
+  <span class="text-5xl -tracking-tight">{title}</span>
+  <span class="text-lg tracking-tighter">{subtitle}</span>
+</h2>

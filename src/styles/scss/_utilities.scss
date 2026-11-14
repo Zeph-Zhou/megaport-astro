@@ -1,0 +1,57 @@
+@use 'functions' as *;
+
+.u-object-fit {
+  --object-x: center;
+  --object-y: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--object-x) var(--object-y);
+}
+
+.u-icon {
+  font-size: rem(24);
+  &-lg {
+    font-size: rem(40);
+  }
+  &-md {
+    font-size: rem(28);
+  }
+  &-sm {
+    font-size: rem(18);
+  }
+}
+
+// 給使用者用的文字編輯器，需要還原大部分 base 設定的 reset
+.u-editor {
+  max-width: 100%;
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: var(--leading-relaxed);
+  overflow: auto;
+  a, button {
+    border-bottom: 1px solid var(--color-primary);
+    transition: color 0.3s;
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+  ul, ol {
+    list-style: revert;
+    margin: revert;
+  }
+  ul {
+    padding-left: rem(28);
+  }
+  ol {
+    padding-left: rem(36);
+  }
+  
+  // prettier-ignore
+  h1, h2, h3, h4, h5, h6, p, button {
+    margin: revert;
+  }
+  span {
+    display: inline;
+  }
+}

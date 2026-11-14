@@ -1,0 +1,141 @@
+---
+import {
+	SITE_NAME,
+	SITE_INFO_TITLE,
+	SITE_DESCRIPTION,
+	SITE_OG_IMAGE
+} from '../consts.ts'
+
+import Header from './components/Header.astro';
+import Footer from './components/Footer.astro';
+
+// https://docs.astro.build/en/guides/styling/#import-a-local-stylesheet
+// https://docs.astro.build/en/guides/styling/#sass-and-scss
+
+// 引入連結
+// css 引入也有順序，通常插件在自定義的 style 上面
+// 這裡順序的原因是：
+// 1. SCSS 裡會用到 Tailwind theme 產生的 CSS variables
+// 2. global.css 有 @layer theme, base, app-base, utilities;
+//    這代表 layer 順序在 global.css 先宣告好，
+//    後面 style.scss 裡的 base layer 才會被放進正確的位置
+import '../styles/global.css'
+import '../styles/scss/style.scss'
+
+// https://docs.astro.build/zh-tw/basics/astro-components/#元件參數
+const { 
+		// title,
+		// description,
+		pageTitle,
+		infoTitle = SITE_INFO_TITLE,
+		description = SITE_DESCRIPTION,
+		ogImage = SITE_OG_IMAGE
+} = Astro.props;
+
+// 設定標題格式
+// <Page Title> - <Site Name>｜<Info Title>
+// 大港開唱｜資訊標題
+// 關於我們 - 大港開唱｜資訊標題
+// 金牌台啤x大港開唱 聯名限定上市｜大港開唱
+
+let title;
+// 前面加！表示否定 => 沒有 pageTitle 時執行。
+if (!pageTitle) {
+		// 大港開唱｜資訊標題
+		title = `${SITE_NAME}｜${infoTitle}`
+} else if ( pageTitle && infoTitle){
+	// && 兩個都有值的話 => 有 pageTitle 也有 infoTitle 時執行。
+	
+		// 關於我們 － 大港開唱｜資訊標題
+		// title = pageTitle + '－' + SITE_NAME + '｜' + infoTitle
+		title = `${pageTitle} － ${SITE_NAME} ｜ ${infoTitle}`
+
+} else if (pageTitle && !infoTitle) {
+	// 這邊等於 => 有 pageTitle 並且沒有 infoTitle 時執行。
+
+		// 金牌台啤x大港開唱 聯名限定上市｜大港開唱
+		title = `${pageTitle}｜${SITE_NAME}`
+
+}
+
+// 可以簡化成以下判斷式
+// if (!pageTitle) {
+// 	title = `${SITE_NAME}｜${infoTitle}`
+// } else if (infoTitle) {
+// 	title = `${pageTitle} - ${SITE_NAME}｜${infoTitle}`
+// } else {
+// 	title = `${pageTitle}｜${SITE_NAME}`
+// }
+---
+
+<!-- Client Side 編譯 -->
+<script>
+	import '../scripts/test.js';
+</script>
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- 新增 maximum-scale=1.0 防止手機點擊表單畫面放大。 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- 教學用網站，因此設置此 meta 防止瀏覽器索引。 -->
+		<meta name="robots" content="noindex, nofollow" />
+
+		<!-- 防止 Iphone 自訂偵測電話，影響樣式。 -->
+		<meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="x-rim-auto-match" content="none" />
+
+		<!-- FB 縮圖資訊，偵錯及預覽工具：https://developers.facebook.com/tools/debug/ -->
+		<meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:description" content={description} />
+    <meta property="og:title" content={title} />
+		
+		<meta name="description" content={description} />
+		<title>{title}</title>
+
+		<!-- Favicon -->
+		<!-- https://realfavicongenerator.net/ -->
+		<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="大港開唱" />
+		<link rel="manifest" href="/favicon/site.webmanifest" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+		<!-- 具名插槽 -->
+		<slot name="head" />
+		
+	</head>
+
+	<body>
+		<!-- <h1 class="text-5xl font-900">新測試</h1> -->
+		<!-- <img src="/public/img/about/about.jpg" alt="">
+		<ol class="--initial"></ol> -->
+		<Header />
+		<main>
+			<!-- https://docs.astro.build/zh-tw/basics/astro-components/#插槽 -->
+			<!-- slot 預設插槽 -->
+			<slot />
+		</main>
+
+		<Footer />
+		
+		<!-- 具名插槽 -->
+		<slot name="footer" />
+	</body>
+</html>
+
+<!-- <style lang="scss">
+h1 {
+	padding-bottom: var(--spacing-20);
+}
+</style> -->
